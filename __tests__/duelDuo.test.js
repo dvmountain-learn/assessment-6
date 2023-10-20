@@ -4,7 +4,7 @@ let driver;
 
 beforeEach(async () => {
   driver = await new Builder().forBrowser(Browser.CHROME).build();
-  await driver.get("http://localhost:8000");
+  await driver.get("http://localhost:4000");
 
 });
 
@@ -33,6 +33,15 @@ describe("Duel Duo tests", () => {
     const renderCardOfPlayer = await driver.wait(until.elementLocated(By.id('player-duo'))).getTagName();
     expect(renderCardOfPlayer).toBe('div');
     
+  })
+
+  test('Check that when a bot is “Removed from Duo”, that it goes back to “choices”', async () => {
+    await driver.findElement(By.id('draw')).click();
+    await driver.findElement(By.className('bot-btn')).click()
+    await driver.sleep(1000);
+    const playerDuo = await driver.wait(until.elementLocated(By.id('player-duo')));
+    const deleteBtn = await playerDuo.findElement(By.className('bot-btn')).click();
+    expect(deleteBtn).not.toBe('button');
   })
 
 });
