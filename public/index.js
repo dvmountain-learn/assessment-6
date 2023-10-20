@@ -120,6 +120,7 @@ const putBotBack = (id) => {
 const drawFive = () => {
   axios.get("/api/robots/shuffled").then((res) => {
     const shuffledBots = res.data;
+    console.log(shuffledBots)
     choices = shuffledBots.slice(0, 5);
     compDuo = shuffledBots.slice(6, 8);
 
